@@ -1,0 +1,17 @@
+[Unit]
+Description=Linux Factory test app
+After=network.target
+
+[Service]
+Type=Simple
+User=lfapp
+Group=lfapp
+WorkingDirectory=/opt/lf-app
+ExecStart=/usr/bin/python3 -m http.server 8080 --directory /opt/lf-app/public
+Restart=on-failure
+NoNewPrivileges=true 
+PrivateTmp=true
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target
