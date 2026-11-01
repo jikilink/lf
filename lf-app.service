@@ -3,7 +3,7 @@ Description=Linux Factory test app
 After=network.target
 
 [Service]
-Type=Simple
+Type=simple
 User=lfapp
 Group=lfapp
 WorkingDirectory=/opt/lf-app

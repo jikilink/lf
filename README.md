@@ -16,36 +16,43 @@
 ```bash
 git clone git@github.com:jikilink/lf.git
 ```
-2. Обновить репозитории ОС:
+2. Перейти в директорию склонированного репозитория
+```bash
+cd lf
+```
+3. Обновить репозитории ОС:
 ```bash
 sudo apt update
 ```
-3. Установить нужные пакеты: 
+4. Установить нужные пакеты: 
 ```bash
 sudo apt install -u python3 curl
 ```
-4. Создать пользователя `lfapp` без хомяка с блокировкой входа в систему:
+5. Создать пользователя `lfapp` без хомяка с блокировкой входа в систему:
 ```bash
 sudo useradd --system --user-group --shell /usr/sbin/nologin lfapp
 ```
-5. Создать директорию с правами:
+6. Создать директорию с правами:
 ```bash
 sudo install -d -m 0750 -o root -g lfapp /opt/lf-app/public
-sudo install -d -m 0640 -o root -g lfapp /opt/lf-app/public/index.html
 ```
-6. В файл `index.html` добавить содержимое:
+7. Создать папку и записать в файл `index.html` следующее содержимое:
 ```bash
-echo '<h1>Linux Factory работает</h1>' | sudo tee /opt/lf-app/public/index.html >/dev/null
+sudo mkdir -p /opt/lf-app/public && echo '<h1>Linux Factory работает</h1>' | sudo tee /opt/lf-app/public/index.html >/dev/null
 ```
-7. Скопировать файл `lf-app.service` в папку:
+8. Включить файл в группу `lfapp` и дать права на чтение:
+```bash
+sudo chmod 0640 /opt/lf-app/public/index.html && chown root:lfapp /opt/lf-app/public/index.html
+```
+9. Скопировать файл `lf-app.service` в папку:
 ```bash
 sudo cp lf-app.service /etc/systemd/system/lf-app.service
 ```
-8. Перечитать юнит файлы:
+10. Перечитать юнит файлы:
 ```bash
 sudo systemctl daemon-reload
 ```
-9. Сделаем службу в автозагрузку и сразу запустим её:
+11. Сделаем службу в автозагрузку и сразу запустим её:
 ```bash
 sudo systemctl enable --now lf-app.service
 ```
