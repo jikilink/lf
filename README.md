@@ -14,7 +14,7 @@
 
 1. Склонировать репозиторий: 
 ```bash
-git clone git@github.com:jikilink/lf.git
+git clone https://github.com/jikilink/lf.git
 ```
 2. Перейти в директорию склонированного репозитория
 ```bash
