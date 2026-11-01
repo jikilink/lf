@@ -42,7 +42,7 @@ sudo mkdir -p /opt/lf-app/public && echo '<h1>Linux Factory работает</h1
 ```
 8. Включить файл в группу `lfapp` и дать права на чтение:
 ```bash
-sudo chmod 0640 /opt/lf-app/public/index.html && chown root:lfapp /opt/lf-app/public/index.html
+sudo chmod 0640 /opt/lf-app/public/index.html && sudo chown root:lfapp /opt/lf-app/public/index.html
 ```
 9. Скопировать файл `lf-app.service` в папку:
 ```bash

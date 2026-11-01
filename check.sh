@@ -8,7 +8,7 @@ echo "###################################"
 sudo systemctl is-enabled lf-app.service
 echo "###################################"
 # Проверка на прослушивания порта
-sudo ss -H -tulnp 'sport = :8080' | grep -q
+sudo ss -H -tulnp 'sport = :8080'
 echo "###################################"
 # Проверка HTTP-запроса
 curl -f http://127.0.0.1:8080/
