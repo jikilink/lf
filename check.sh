@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 # Вывод активности сервиса
-sudo systemctl status lf-app.service --no-pager -l
+sudo systemctl is-active lf-app
 echo "###################################"
 # Проверка статуса сервиса, что он находится в автозагрузке
 sudo systemctl is-enabled lf-app.service
@@ -15,3 +15,6 @@ curl -f http://127.0.0.1:8080/
 echo "###################################"
 # Проверка, что процесс работает от пользователя lfapp
 pgrep -a -u lfapp python3
+echo "###################################"
+# Просмотр журнала сервиса, должна появиться строка о запросе
+journalctl -u lf-app -n 10 --no-pager

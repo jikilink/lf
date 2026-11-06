@@ -1,15 +1,22 @@
 [Unit]
 Description=Linux Factory test app
 After=network.target
+StartLimitIntervalSec=30
+StartLimitBurst=3
 
 [Service]
 Type=simple
 User=lfapp
 Group=lfapp
 WorkingDirectory=/opt/lf-app
-ExecStart=/usr/bin/python3 -m http.server 8080 --directory /opt/lf-app/public
+EnvironmentFile=/etc/lf-app/lf-app.env
+ExecStart=/usr/bin/python3 /opt/lf-app/app.py
 Restart=on-failure
-NoNewPrivileges=true 
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=lf-app
+NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 
