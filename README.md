@@ -68,13 +68,13 @@ sudo chmod 0640 /opt/lf-app/app.py && sudo chown root:lfapp /opt/lf-app/app.py
 9.Перенести файл `lf-app.env.example` в папку:
 
 ```bash
-sudo mv lf-app.env.example /etc/lf-app/lf-app.env
+sudo cp lf-app.env.example /etc/lf-app/lf-app.env
 ```
 
 10.Включить файл в группу `lfapp` и дать права на чтение:
 
 ```bash
-sudo chmod 0640 /opt/lf-app/lf-app.env && sudo chown root:lfapp /opt/lf-app/lf-app.env
+sudo chmod 0640 /etc/lf-app/lf-app.env && sudo chown root:lfapp /etc/lf-app/lf-app.env
 ```
 
 11.Открыть файл `lf-app.env` и поменять на содержимое:
@@ -201,33 +201,37 @@ sudo systemctl daemon-reload && sudo systemctl restart lf-app.service
 sudo systemctl status lf-app.service --no-pager -l
 ```
 
-### Удаление переменной
+### Неправильно указан путь к файлу с переменнами
 
 - Симптом - при обращении к приложению через `curl` отвечает с ошибкой `Couldn't connect to server`
 - Посмотрим стату сервиса:
 
 ```bash
-journalctl -u lf-app.service --since "2 minutes ago" --no-pager
+sudo journalctl -u lf-app -n 20 --no-pager
 ```
 
 - Строка показывающее проблему запуска сервиса:
 
 ```bash
-lf-app[3219]: KeyError: 'PORT'
+lf-app.service: Failed to load environment files: No such file or directory
 ```
 
-- Откроем файл `lf-app.env` и посмотрим содержимое файла:
+- Откроем файл `/etc/systemd/system/lf-app.service` и посмотрим содержимое файла:
 
 ```bash
-sudo cat /etc/lf-app/lf-app.env
+sudo cat /etc/systemd/system/lf-app.service
 ```
 
-> Не хватает переменной PORT
+> Неправильно указан путь к файлу с переменнами
 
-- Исправление - добавим в файл `lf-app.env` переменную `PORT` со значением порта и перезагрузим сервис:
+- Исправление - исправим путь на правильный, перечитаем конфигурацию юнита и перезагрузим сервис:
 
 ```bash
-sudo systemctl reset-failed lf-app.service && sudo systemctl restart lf-app.service
+sudo systemctl daemon-reload
+```
+
+```bash
+sudo systemctl restart lf-app.service
 ```
 
 - Итоговая команда для проверки:
