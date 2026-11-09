@@ -198,7 +198,7 @@ sudo systemctl daemon-reload && sudo systemctl restart lf-app.service
 - Итоговая команда для проверки:
 
 ```bash
-sudo systemctl status lf-app.service --no-pager -l
+bash check.sh
 ```
 
 ### Неправильно указан путь к файлу с переменнами
@@ -237,5 +237,5 @@ sudo systemctl restart lf-app.service
 - Итоговая команда для проверки:
 
 ```bash
-sudo systemctl status lf-app.service --no-pager -l
+bash check.sh
 ```

@@ -24,7 +24,7 @@ echo "###################################"
 # Проверка переменной
 
 CHECK_DEFAULT=$(sudo grep -m 1 "APP_MESSAGE" /etc/lf-app/lf-app.env 2>/dev/null | cut -c 1 || true)
-APP_MESSAGE=$(sudo grep -m 1 "APP_MESSAGE" /etc/lf-app/lf-app.env | cut -d '=' -f 2 | tr -d '"')
+APP_MESSAGE=$(sudo grep -m 1 "APP_MESSAGE" /etc/lf-app/lf-app.env | cut -d '=' -f 2- | tr -d '"')
 CURL=$(curl -fs http://127.0.0.1:8080/)
 
 if [ "$CHECK_DEFAULT" = "#" ] || [ -z "$CHECK_DEFAULT" ]; then
