@@ -83,7 +83,7 @@ openssl s_client -connect app.lf.test:443 -servername app.lf.test -CAfile /etc/n
 5.**HTTP-ответ nginx:**
 
 ```bash
-curl -fsS --cacert /etc/nginx/tls/app.lf.test.crt [https://app.lf.test/](https://app.lf.test/)
+curl -fsS --cacert /etc/nginx/tls/app.lf.test.crt https://app.lf.test/
 ```
 
 Вывод: `nginx` успешно проксирует HTTPS-запрос и возвращает ответ приложения `Linux Factory работает`.
@@ -91,7 +91,7 @@ curl -fsS --cacert /etc/nginx/tls/app.lf.test.crt [https://app.lf.test/](https:/
 6.**Прямой HTTP-ответ приложения:**
 
 ```bash
-curl -fsS [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
+curl -fsS http://127.0.0.1:8080/
 ```
 
 Вывод: сервис `lf-app` напрямую отвечает по локальному адресу `127.0.0.1:8080` строкой `Linux Factory работает`.
